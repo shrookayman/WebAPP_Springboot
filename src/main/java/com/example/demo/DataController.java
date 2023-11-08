@@ -55,5 +55,11 @@ public class DataController {
         xmlStudentService.writeStudentsToXml("Student.xml", students);
         return "redirect:/display-xml-data";
     }
+
+    @PostMapping("/delete-student")
+    public String deleteStudent(@RequestParam("studentId") String studentId) throws Exception {
+        xmlStudentService.deleteStudentFromXml("Student.xml", studentId);
+        return "redirect:/display-xml-data";
+    }
 }
 

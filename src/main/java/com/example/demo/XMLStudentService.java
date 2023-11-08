@@ -23,7 +23,6 @@ public class XMLStudentService {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-        // Parse the existing XML file or create a new one if it doesn't exist.
         Document doc;
         File xmlFile = new File(xmlFilePath);
         if (xmlFile.exists()) {
@@ -37,15 +36,12 @@ public class XMLStudentService {
         // Get the root element (Students) of the XML document.
         Element rootElement = doc.getDocumentElement();
 
-        // Append student data to the XML file.
         for (Student student : students) {
             Element studentElement = doc.createElement("Student");
             rootElement.appendChild(studentElement);
 
-            // Add ID attribute
             studentElement.setAttribute("ID", student.getId());
 
-            // Add other elements (FirstName, LastName, Gender, GPA, Level, Address)
             studentElement.appendChild(createStudentElement(doc, "FirstName", student.getFirstName()));
             studentElement.appendChild(createStudentElement(doc, "LastName", student.getLastName()));
             studentElement.appendChild(createStudentElement(doc, "Gender", student.getGender()));
@@ -110,5 +106,35 @@ public class XMLStudentService {
             }
         }
         return students;
+    }
+
+
+    public void deleteStudentFromXml(String xmlFilePath, String studentId) throws Exception {
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+        Document doc = docBuilder.parse(xmlFilePath);
+
+        NodeList studentNodes = doc.getElementsByTagName("Student");
+
+        // Iterate through the student nodes to find the one with the matching ID and remove it.
+        for (int i = 0; i < studentNodes.getLength(); i++) {
+            Node studentNode = studentNodes.item(i);
+            if (studentNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element studentElement = (Element) studentNode;
+                String id = studentElement.getAttribute("ID");
+
+                if (id.equals(studentId)) {
+                    studentElement.getParentNode().removeChild(studentElement);
+                    break; // Break once the student is deleted.
+                }
+            }
+        }
+
+        // Write the updated XML back to the file.
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(new File(xmlFilePath));
+        transformer.transform(source, result);
     }
 }
