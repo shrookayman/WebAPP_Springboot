@@ -4,16 +4,26 @@
     <title>Student Data</title>
 </head>
 <body>
-<h1>Student Data1</h1>
-<table>
-    <tr>
-        <th>IDs</th>
-        <th>First Name</th>
-    </tr>
-    <tr th:each="student : ${students}">
-        <td th:text="${student.ID}">Student ID</td>
-        <td th:text="${student.firstName}">First Name</td>
-    </tr>
-</table>
+    <h1>Student Data1</h1>
+    <table>
+        <tr>
+            <th>IDs</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>GPA</th>
+            <th>Level</th>
+            <th>Address</th>
+        </tr>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.getId()}"></td>
+            <td th:text="${student.getFirstName()}"></td>
+            <td th:text="${student.getLastName()}"></td>
+            <td th:text="${student.getGender()}"></td>
+            <td th:text="${student.getGPA()}"></td>
+            <td th:text="${student.getLevel()}"></td>
+            <td th:text="${student.getAddress()}"></td>
+        </tr>
+    </table>
 </body>
 </html>

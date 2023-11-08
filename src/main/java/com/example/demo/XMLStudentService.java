@@ -33,16 +33,27 @@ public class XMLStudentService {
                 String id = studentElement.getAttributes().getNamedItem("ID").getNodeValue();
                 String firstName = studentElement.getElementsByTagName("FirstName").item(0)
                         .getChildNodes().item(0).getNodeValue();
+                String lastName = studentElement.getElementsByTagName("LastName").item(0)
+                        .getChildNodes().item(0).getNodeValue();
+                String gender = studentElement.getElementsByTagName("Gender").item(0)
+                        .getChildNodes().item(0).getNodeValue();
+                String gpa = studentElement.getElementsByTagName("GPA").item(0)
+                        .getChildNodes().item(0).getNodeValue();
+                String level = studentElement.getElementsByTagName("Level").item(0)
+                        .getChildNodes().item(0).getNodeValue();
+                String address = studentElement.getElementsByTagName("Address").item(0)
+                        .getChildNodes().item(0).getNodeValue();
+
 
                 System.out.println("-----READ-----");
 
-                students.add(new Student(id, firstName));
+                students.add(new Student(id, firstName, lastName, gender, gpa, level, address));
                 for (Student empl : students) {
                     System.out.println(empl.getFirstName());
+                    System.out.println(empl.getId());
                 }
             }
         }
-
         return students;
     }
 
