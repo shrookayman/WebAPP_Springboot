@@ -19,6 +19,8 @@ public class Student {
         this.address = address;
     }
 
+    public Student() {};
+
     // Getters and setters
     public void setFirstName(String firstName) {
         this.firstName = firstName;

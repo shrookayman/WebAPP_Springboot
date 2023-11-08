@@ -2,9 +2,12 @@ package com.example.demo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DataController {
@@ -25,6 +28,32 @@ public class DataController {
             // Handle exception
         }
         return "display-xml-data"; // Thymeleaf template name
+    }
+
+    @GetMapping("/store-xml-data")
+    public String showStudentDataForm(Model model, @RequestParam(required = false) Integer numStudents) {
+        model.addAttribute("numStudents", numStudents);
+        return "store-xml-data";
+    }
+
+    @PostMapping("/store-xml-data")
+    public String storeStudentData(Model model, @RequestParam Integer numStudents, @RequestParam Map<String, String> formData) throws Exception {
+        List<Student> students = new ArrayList<>();
+
+//        for (int i = 1; i <= numStudents; i++) {
+            System.out.println(formData);
+            Student student = new Student();
+            student.setId(formData.get("id"));
+            student.setFirstName(formData.get("firstName"));
+            student.setLastName(formData.get("lastName"));
+            student.setGender(formData.get("gender"));
+            student.setGPA(formData.get("gpa"));
+            student.setLevel(formData.get("level"));
+            student.setAddress(formData.get("address"));
+            students.add(student);
+//        }
+        xmlStudentService.writeStudentsToXml("Student.xml", students);
+        return "redirect:/display-xml-data";
     }
 }
 

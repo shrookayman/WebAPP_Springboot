@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Data Form</title>
+</head>
+<body>
+<form th:action="@{/store-xml-data}" method="GET">
+    Enter the number of students: <input type="number" name="numStudents"><br>
+    <input type="submit" value="Enter Data">
+</form>
+
+<!-- Display student data input fields based on the number of students -->
+<th:block th:if="${numStudents != null}">
+    <form th:action="@{/store-xml-data}" method="POST">
+<!--        <th:each items="${#numbers.sequence(1, numStudents)}" var="studentNumber">-->
+            <div>
+                <input type="hidden" name="numStudents" th:value="${numStudents}" />
+                <h2>Student <span th:text="${studentNumber}"></span> Data</h2>
+                ID: <input type="text" name="id" th:name="'id'"><br>
+                First Name: <input type="text" name="firstName" th:name="'firstName'"><br>
+                Last Name: <input type="text" name="lastName" th:name="'lastName'"><br>
+                Gender: <input type="text" name="gender" th:name="'gender'"><br>
+                GPA: <input type="text" name="gpa" th:name="'gpa'"><br>
+                Level: <input type="text" name="level" th:name="'level'"><br>
+                Address: <input type="text" name="address" th:name="'address'"><br>
+            </div>
+<!--        </th:each>-->
+        <input type="submit" value="Submit">
+    </form>
+</th:block>
+</body>
+</html>

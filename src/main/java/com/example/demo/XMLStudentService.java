@@ -8,12 +8,67 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class XMLStudentService {
+    public void writeStudentsToXml(String xmlFilePath, List<Student> students) throws Exception {
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+        // Parse the existing XML file or create a new one if it doesn't exist.
+        Document doc;
+        File xmlFile = new File(xmlFilePath);
+        if (xmlFile.exists()) {
+            doc = docBuilder.parse(xmlFile);
+        } else {
+            doc = docBuilder.newDocument();
+            Element rootElement = doc.createElement("Student");
+            doc.appendChild(rootElement);
+        }
+
+        // Get the root element (Students) of the XML document.
+        Element rootElement = doc.getDocumentElement();
+
+        // Append student data to the XML file.
+        for (Student student : students) {
+            Element studentElement = doc.createElement("Student");
+            rootElement.appendChild(studentElement);
+
+            // Add ID attribute
+            studentElement.setAttribute("ID", student.getId());
+
+            // Add other elements (FirstName, LastName, Gender, GPA, Level, Address)
+            studentElement.appendChild(createStudentElement(doc, "FirstName", student.getFirstName()));
+            studentElement.appendChild(createStudentElement(doc, "LastName", student.getLastName()));
+            studentElement.appendChild(createStudentElement(doc, "Gender", student.getGender()));
+            studentElement.appendChild(createStudentElement(doc, "GPA", student.getGPA()));
+            studentElement.appendChild(createStudentElement(doc, "Level", student.getLevel()));
+            studentElement.appendChild(createStudentElement(doc, "Address", student.getAddress()));
+        }
+
+        // Write the DOM document back to the XML file.
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(xmlFile);
+        transformer.transform(source, result);
+    }
+
+    private Node createStudentElement(Document doc, String tagName, String value) {
+        Element element = doc.createElement(tagName);
+        element.appendChild(doc.createTextNode(value));
+        return element;
+    }
+
     public List<Student> readStudentsFromXml(String xmlFilePath) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -48,13 +103,12 @@ public class XMLStudentService {
                 System.out.println("-----READ-----");
 
                 students.add(new Student(id, firstName, lastName, gender, gpa, level, address));
-                for (Student empl : students) {
-                    System.out.println(empl.getFirstName());
-                    System.out.println(empl.getId());
+                for (Student st : students) {
+                    System.out.println(st.getFirstName());
+                    System.out.println(st.getId());
                 }
             }
         }
         return students;
     }
-
 }
