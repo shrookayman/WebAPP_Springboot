@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Search Student Data</title>
+</head>
+<body>
+<h1>Search Student Data</h1>
+<form th:action="@{/search-xml-data}" method="POST">
+  Search by:
+  <select name="searchField">
+    <option value="GPA">GPA</option>
+    <option value="FirstName">First Name</option>
+  </select>
+  <input type="text" name="searchTerm" placeholder="Enter search term">
+  <input type="submit" value="Search">
+</form>
+
+<table>
+  <tr>
+    <th>IDD</th>
+    <th>First Name</th>
+    <!-- Add other table headers as needed -->
+  </tr>
+  <tr th:each="student : ${students}">
+    <td th:text="${student.ID}">Student ID</td>
+    <td th:text="${student.firstName}">First Name</td>
+    <!-- Add other table data cells as needed -->
+  </tr>
+</table>
+</body>
+</html>

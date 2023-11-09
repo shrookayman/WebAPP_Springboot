@@ -61,5 +61,41 @@ public class DataController {
         xmlStudentService.deleteStudentFromXml("Student.xml", studentId);
         return "redirect:/display-xml-data";
     }
+
+    //         ---------Search-----
+
+    @GetMapping("/search-xml-data")
+    public String showSearchForm() {
+        return "search-xml-data";
+    }
+
+    @PostMapping("/search-xml-data")
+    public String searchStudentData(Model model, @RequestParam String searchField, @RequestParam String searchTerm) {
+        try {
+            List<Student> students = xmlStudentService.readStudentsFromXml("Student.xml");
+
+            // Perform the search based on the selected field (GPA or FirstName)
+            List<Student> searchResults = new ArrayList<>();
+            if ("GPA".equals(searchField)) {
+                for (Student student : students) {
+                    if (student.getGPA().equals(searchTerm)) {
+                        searchResults.add(student);
+                    }
+                }
+            } else if ("FirstName".equals(searchField)) {
+                for (Student student : students) {
+                    if (student.getFirstName().equalsIgnoreCase(searchTerm)) {
+                        searchResults.add(student);
+                    }
+                }
+            }
+
+            model.addAttribute("students", searchResults);
+        } catch (Exception e) {
+            // Handle exception
+        }
+        return "display-xml-data"; // Thymeleaf template name to display search results
+    }
+
 }
 
