@@ -90,11 +90,11 @@ public class DataController {
                 }
             }
 
-            model.addAttribute("students", searchResults);
+            model.addAttribute("searchedStudents", searchResults);
         } catch (Exception e) {
             // Handle exception
         }
-        return "display-xml-data"; // Thymeleaf template name to display search results
+        return "search-xml-data"; // Thymeleaf template name to display search results
     }
 
 }

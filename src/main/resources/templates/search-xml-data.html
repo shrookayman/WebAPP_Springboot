@@ -15,17 +15,28 @@
   <input type="submit" value="Search">
 </form>
 
-<table>
-  <tr>
-    <th>IDD</th>
-    <th>First Name</th>
-    <!-- Add other table headers as needed -->
-  </tr>
-  <tr th:each="student : ${students}">
-    <td th:text="${student.ID}">Student ID</td>
-    <td th:text="${student.firstName}">First Name</td>
-    <!-- Add other table data cells as needed -->
-  </tr>
-</table>
+<th:block th:if="${searchedStudents != null}">
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Gender</th>
+      <th>GPA</th>
+      <th>Level</th>
+      <th>Address</th>
+      <!-- Add other table headers as needed -->
+    </tr>
+    <tr th:each="student : ${searchedStudents}">
+      <td th:text="${student.getId}"></td>
+      <td th:text="${student.getFirstName}"></td>
+      <td th:text="${student.getLastName()}"></td>
+      <td th:text="${student.getGender()}"></td>
+      <td th:text="${student.getGPA()}"></td>
+      <td th:text="${student.getLevel()}"></td>
+      <td th:text="${student.getAddress()}"></td>
+    </tr>
+  </table>
+</th:block>
 </body>
 </html>
