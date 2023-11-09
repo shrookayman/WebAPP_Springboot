@@ -15,17 +15,17 @@
 <!--        <th:each items="${#numbers.sequence(1, numStudents)}" var="studentNumber">-->
             <div>
                 <input type="hidden" name="numStudents" th:value="${numStudents}" />
-                <h2>Student <span th:text="${studentNumber}"></span> Data</h2>
-                ID: <input type="text" name="id" th:name="'id'"><br>
-                First Name: <input type="text" name="firstName" th:name="'firstName'"><br>
-                Last Name: <input type="text" name="lastName" th:name="'lastName'"><br>
-                Gender: <input type="text" name="gender" th:name="'gender'"><br>
-                GPA: <input type="text" name="gpa" th:name="'gpa'"><br>
-                Level: <input type="text" name="level" th:name="'level'"><br>
-                Address: <input type="text" name="address" th:name="'address'"><br>
+                <h2>Student <span th:text="${count}"></span> Data</h2>
+                ID: <input type="text" th:name="'id'"><br>
+                First Name: <input type="text" th:name="'firstName'"><br>
+                Last Name: <input type="text" th:name="'lastName'"><br>
+                Gender: <input type="text" th:name="'gender'"><br>
+                GPA: <input type="text" th:name="'gpa'"><br>
+                Level: <input type="text" th:name="'level'"><br>
+                Address: <input type="text" th:name="'address'"><br>
             </div>
 <!--        </th:each>-->
-        <input type="submit" value="Submit">
+        <input type="Submit" value="Next">
     </form>
 </th:block>
 </body>

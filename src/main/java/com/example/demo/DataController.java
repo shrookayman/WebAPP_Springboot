@@ -38,22 +38,23 @@ public class DataController {
 
     @PostMapping("/store-xml-data")
     public String storeStudentData(Model model, @RequestParam Integer numStudents, @RequestParam Map<String, String> formData) throws Exception {
-        List<Student> students = new ArrayList<>();
-
-//        for (int i = 1; i <= numStudents; i++) {
-            System.out.println(formData);
-            Student student = new Student();
-            student.setId(formData.get("id"));
-            student.setFirstName(formData.get("firstName"));
-            student.setLastName(formData.get("lastName"));
-            student.setGender(formData.get("gender"));
-            student.setGPA(formData.get("gpa"));
-            student.setLevel(formData.get("level"));
-            student.setAddress(formData.get("address"));
-            students.add(student);
-//        }
-        xmlStudentService.writeStudentsToXml("Student.xml", students);
-        return "redirect:/display-xml-data";
+        System.out.println(formData);
+        Student student = new Student();
+        student.setId(formData.get("id"));
+        student.setFirstName(formData.get("firstName"));
+        student.setLastName(formData.get("lastName"));
+        student.setGender(formData.get("gender"));
+        student.setGPA(formData.get("gpa"));
+        student.setLevel(formData.get("level"));
+        student.setAddress(formData.get("address"));
+        xmlStudentService.writeStudentToXml("Student.xml", student);
+        numStudents--;
+        if(numStudents==0){
+            return "redirect:/display-xml-data";
+        }
+        else {
+            return "redirect:/store-xml-data?numStudents=" + numStudents;
+        }
     }
 
     @PostMapping("/delete-student")
@@ -62,7 +63,7 @@ public class DataController {
         return "redirect:/display-xml-data";
     }
 
-    //         ---------Search-----
+    //         ---------Search-------
 
     @GetMapping("/search-xml-data")
     public String showSearchForm() {

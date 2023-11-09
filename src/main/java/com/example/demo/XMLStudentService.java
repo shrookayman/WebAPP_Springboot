@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 public class XMLStudentService {
-    public void writeStudentsToXml(String xmlFilePath, List<Student> students) throws Exception {
+    public void writeStudentToXml(String xmlFilePath, Student student) throws Exception {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
@@ -36,19 +36,17 @@ public class XMLStudentService {
         // Get the root element (Students) of the XML document.
         Element rootElement = doc.getDocumentElement();
 
-        for (Student student : students) {
-            Element studentElement = doc.createElement("Student");
-            rootElement.appendChild(studentElement);
+        Element studentElement = doc.createElement("Student");
+        rootElement.appendChild(studentElement);
 
-            studentElement.setAttribute("ID", student.getId());
+        studentElement.setAttribute("ID", student.getId());
 
-            studentElement.appendChild(createStudentElement(doc, "FirstName", student.getFirstName()));
-            studentElement.appendChild(createStudentElement(doc, "LastName", student.getLastName()));
-            studentElement.appendChild(createStudentElement(doc, "Gender", student.getGender()));
-            studentElement.appendChild(createStudentElement(doc, "GPA", student.getGPA()));
-            studentElement.appendChild(createStudentElement(doc, "Level", student.getLevel()));
-            studentElement.appendChild(createStudentElement(doc, "Address", student.getAddress()));
-        }
+        studentElement.appendChild(createStudentElement(doc, "FirstName", student.getFirstName()));
+        studentElement.appendChild(createStudentElement(doc, "LastName", student.getLastName()));
+        studentElement.appendChild(createStudentElement(doc, "Gender", student.getGender()));
+        studentElement.appendChild(createStudentElement(doc, "GPA", student.getGPA()));
+        studentElement.appendChild(createStudentElement(doc, "Level", student.getLevel()));
+        studentElement.appendChild(createStudentElement(doc, "Address", student.getAddress()));
 
         // Write the DOM document back to the XML file.
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
