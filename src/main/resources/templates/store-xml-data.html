@@ -5,11 +5,11 @@
 </head>
 <body>
 <nav style="padding: 1rem">
-    <a href="/display-xml-data" style="text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 10px; font-family: 'sans-serif'; color: #000">Display Students</a>
-    <a href="/search-xml-data" style="text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 10px; font-family: 'sans-serif'; color: #000">Search</a>
-    <a href="/store-xml-data" style="text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 10px; font-family: 'sans-serif'; color: #000">Add Student</a>
+    <a href="/display-xml-data" class="nav" >Display Students</a>
+    <a href="/search-xml-data"  class="nav" >Search</a>
+    <a href="/store-xml-data" class="nav" >Add Student</a>
 </nav>
-<form th:action="@{/store-xml-data}" method="GET">
+<form th:action="@{/store-xml-data}" method="GET" style="padding: 1rem">
     Enter the number of students: <input type="number" name="numStudents"><br>
     <input type="submit" value="Enter Data">
 </form>
@@ -18,20 +18,38 @@
 <th:block th:if="${numStudents != null}">
     <form th:action="@{/store-xml-data}" method="POST">
 <!--        <th:each items="${#numbers.sequence(1, numStudents)}" var="studentNumber">-->
-            <div>
+            <div class="form">
                 <input type="hidden" name="numStudents" th:value="${numStudents}" />
-                <h2>Student <span th:text="${count}"></span> Data</h2>
-                ID: <input type="text" th:name="'id'"><br>
-                First Name: <input type="text" th:name="'firstName'"><br>
-                Last Name: <input type="text" th:name="'lastName'"><br>
-                Gender: <input type="text" th:name="'gender'"><br>
-                GPA: <input type="text" th:name="'gpa'"><br>
-                Level: <input type="text" th:name="'level'"><br>
-                Address: <input type="text" th:name="'address'"><br>
+                <h2> <span th:text="${numStudents}"></span> Students </h2>
+                ID:<input type="text" th:name="'id'" class="inputData"><br>
+                First Name: <input type="text" th:name="'firstName'" class="inputData"><br>
+                Last Name: <input type="text" th:name="'lastName'" class="inputData"><br>
+                Gender: <input type="text" th:name="'gender'" class="inputData"><br>
+                GPA: <input type="text" th:name="'gpa'" class="inputData"><br>
+                Level: <input type="text" th:name="'level'" class="inputData"><br>
+                Address: <input type="text" th:name="'address'" class="inputData"><br>
             </div>
 <!--        </th:each>-->
-        <input type="Submit" value="Next">
+        <input type="Submit" value="Next" style="margin: 1rem">
     </form>
 </th:block>
 </body>
 </html>
+<style>
+    .inputData {
+        display: block;
+        margin: 3px 0;
+    }
+    .form{
+        padding: 1rem;
+    }
+    .nav{
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border: 1px solid #000;
+        border-radius: 10px;
+        font-family: 'sans-serif';
+        color: #000
+    }
+
+</style>

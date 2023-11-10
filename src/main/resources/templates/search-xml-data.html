@@ -5,10 +5,11 @@
 </head>
 <body>
 <nav style="padding: 1rem">
-    <a href="/display-xml-data" style="text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 10px; font-family: 'sans-serif'; color: #000">Display Students</a>
-    <a href="/search-xml-data" style="text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 10px; font-family: 'sans-serif'; color: #000">Search</a>
-    <a href="/store-xml-data" style="text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 10px; font-family: 'sans-serif'; color: #000">Add Student</a>
+  <a href="/display-xml-data" class="nav" >Display Students</a>
+  <a href="/search-xml-data"  class="nav" >Search</a>
+  <a href="/store-xml-data" class="nav" >Add Student</a>
 </nav>
+<div class="searchForm">
 <h1>Search Student Data</h1>
 <form th:action="@{/search-xml-data}" method="POST">
   Search by:
@@ -19,7 +20,7 @@
   <input type="text" name="searchTerm" placeholder="Enter search term">
   <input type="submit" value="Search">
 </form>
-
+</div>
 <th:block th:if="${searchedStudents != null}">
   <table>
     <tr>
@@ -45,3 +46,41 @@
 </th:block>
 </body>
 </html>
+<style>
+  .searchForm{
+    margin-bottom: 0.5rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th {
+    background-color: #4e6974;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+
+
+  .nav{
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid #000;
+    border-radius: 10px;
+    font-family: 'sans-serif';
+    color: #000
+  }
+
+</style>
