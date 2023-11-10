@@ -4,6 +4,11 @@
     <title>Student Data Form</title>
 </head>
 <body>
+<nav style="padding: 1rem">
+    <a href="/display-xml-data" style="text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 10px; font-family: 'sans-serif'; color: #000">Display Students</a>
+    <a href="/search-xml-data" style="text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 10px; font-family: 'sans-serif'; color: #000">Search</a>
+    <a href="/store-xml-data" style="text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #000; border-radius: 10px; font-family: 'sans-serif'; color: #000">Add Student</a>
+</nav>
 <form th:action="@{/store-xml-data}" method="GET">
     Enter the number of students: <input type="number" name="numStudents"><br>
     <input type="submit" value="Enter Data">

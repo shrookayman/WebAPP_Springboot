@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <University>
-    <Student ID ="20200380">
+    <Student ID="20200380">
         <FirstName>Fefe</FirstName>
         <LastName>Ahmed</LastName>
         <Gender>Male</Gender>
@@ -8,7 +8,7 @@
         <Level>4</Level>
         <Address>Giza</Address>
     </Student>
-    <Student ID ="20200251">
+    <Student ID="20200251">
         <FirstName>Shrouk</FirstName>
         <LastName>Ayman</LastName>
         <Gender>Male</Gender>
@@ -16,7 +16,7 @@
         <Level>4</Level>
         <Address>Giza</Address>
     </Student>
-    <Student ID ="20200107">
+    <Student ID="20200107">
         <FirstName>Ayoy</FirstName>
         <LastName>Mounir</LastName>
         <Gender>Female</Gender>
@@ -24,7 +24,7 @@
         <Level>4</Level>
         <Address>Giza</Address>
     </Student>
-    <Student ID ="20200154">
+    <Student ID="20200154">
         <FirstName>Salma</FirstName>
         <LastName>Ahmed</LastName>
         <Gender>Female</Gender>
@@ -32,4 +32,5 @@
         <Level>4</Level>
         <Address>Giza</Address>
     </Student>
+
 </University>
