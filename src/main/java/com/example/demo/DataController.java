@@ -20,14 +20,13 @@ public class DataController {
     @GetMapping("/display-xml-data")
     public String displayXmlData(Model model) {
         try {
-            System.out.println("-----Controller-----");
             List<Student> students;
             students = xmlStudentService.readStudentsFromXml("Student.xml");
             model.addAttribute("students", students);
         } catch (Exception e) {
-            // Handle exception
+            System.out.println("error ");
         }
-        return "display-xml-data"; // Thymeleaf template name
+        return "display-xml-data";
     }
 
     @GetMapping("/store-xml-data")
@@ -75,7 +74,6 @@ public class DataController {
         try {
             List<Student> students = xmlStudentService.readStudentsFromXml("Student.xml");
 
-            // Perform the search based on the selected field (GPA or FirstName)
             List<Student> searchResults = new ArrayList<>();
             if ("GPA".equals(searchField)) {
                 for (Student student : students) {
@@ -93,9 +91,9 @@ public class DataController {
 
             model.addAttribute("searchedStudents", searchResults);
         } catch (Exception e) {
-            // Handle exception
+            System.out.println("error");
         }
-        return "search-xml-data"; // Thymeleaf template name to display search results
+        return "search-xml-data";
     }
 
 }

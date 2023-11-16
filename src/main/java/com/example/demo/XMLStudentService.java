@@ -33,7 +33,7 @@ public class XMLStudentService {
             doc.appendChild(rootElement);
         }
 
-        // Get the root element (Students) of the XML document.
+
         Element rootElement = doc.getDocumentElement();
 
         Element studentElement = doc.createElement("Student");
@@ -48,7 +48,7 @@ public class XMLStudentService {
         studentElement.appendChild(createStudentElement(doc, "Level", student.getLevel()));
         studentElement.appendChild(createStudentElement(doc, "Address", student.getAddress()));
 
-        // Write the DOM document back to the XML file.
+
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -114,7 +114,6 @@ public class XMLStudentService {
 
         NodeList studentNodes = doc.getElementsByTagName("Student");
 
-        // Iterate through the student nodes to find the one with the matching ID and remove it.
         for (int i = 0; i < studentNodes.getLength(); i++) {
             Node studentNode = studentNodes.item(i);
             if (studentNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -123,7 +122,7 @@ public class XMLStudentService {
 
                 if (id.equals(studentId)) {
                     studentElement.getParentNode().removeChild(studentElement);
-                    break; // Break once the student is deleted.
+                    break;
                 }
             }
         }

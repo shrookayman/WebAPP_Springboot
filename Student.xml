@@ -1,36 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<University>
-    <Student ID="20200380">
-        <FirstName>Fefe</FirstName>
-        <LastName>Ahmed</LastName>
-        <Gender>Male</Gender>
-        <GPA>3.17</GPA>
-        <Level>4</Level>
-        <Address>Giza</Address>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Student>
+            
+    
+    
+        
+    
+    <Student ID="20200122">
+                
+        <FirstName>shrouk</FirstName>
+                
+        <LastName>ayman</LastName>
+                
+        <Gender>female</Gender>
+                
+        <GPA>4</GPA>
+                
+        <Level>3</Level>
+                
+        <Address>egypt, giza , 6 october city</Address>
+            
     </Student>
-    <Student ID="20200251">
-        <FirstName>Shrouk</FirstName>
-        <LastName>Ayman</LastName>
-        <Gender>Male</Gender>
-        <GPA>3.17</GPA>
-        <Level>4</Level>
-        <Address>Giza</Address>
+    
+    <Student ID="20200122">
+        <FirstName>aya</FirstName>
+        <LastName>ayman</LastName>
+        <Gender>female</Gender>
+        <GPA>3</GPA>
+        <Level>1</Level>
+        <Address>egypt, giza , 6 october city</Address>
     </Student>
-    <Student ID="20200107">
-        <FirstName>Ayoy</FirstName>
-        <LastName>Mounir</LastName>
-        <Gender>Female</Gender>
-        <GPA>3.17</GPA>
-        <Level>4</Level>
-        <Address>Giza</Address>
-    </Student>
-    <Student ID="20200154">
-        <FirstName>Salma</FirstName>
-        <LastName>Ahmed</LastName>
-        <Gender>Female</Gender>
-        <GPA>3.17</GPA>
-        <Level>4</Level>
-        <Address>Giza</Address>
-    </Student>
-
-</University>
+</Student>
