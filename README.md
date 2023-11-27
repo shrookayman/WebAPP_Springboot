@@ -1,9 +1,37 @@
-# WebAPP_Springboot
-This is a web application that :
-1- Build an XML document. 
-2- Ask the user to enter the number of students s/he wants to store data about. 
-3- Take student data from the user. 
-4- Store the data in the XML file using the previous structure.
-5- Give the user the ability to search for a specific GPA or FirstName and retrieve the search result from the XML file. 
-6- Choose any record to be deleted. 
+# Web Application with Spring Boot
+
+## Overview
+
+This Spring Boot web application allows users to manage student data through an XML document. Users can build, store, search, and delete student records in a user-friendly interface.
+
+## Features
+
+1. **Build XML Document:**
+   - The application initializes and manages an XML document structure for storing student data.
+
+2. **Data Entry:**
+   - Users are prompted to enter the number of students they want to store data about.
+   - The application then collects detailed information about each student.
+
+3. **Data Storage:**
+   - Student data is stored in the XML file following a predefined structure.
+
+4. **Search Functionality:**
+   - Users can search for specific records based on GPA or FirstName.
+   - The application retrieves search results from the XML file.
+
+5. **Record Deletion:**
+   - Users have the ability to choose and delete any record from the XML file.
+
+## How to Run
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/your_username/WebAPP_Springboot.git
+
+##Run the Application:
+./mvnw spring-boot:run
+
+##Access the Application:
+Open your web browser and go to http://localhost:8080
 
