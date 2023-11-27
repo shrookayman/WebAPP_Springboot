@@ -29,9 +29,11 @@ This Spring Boot web application allows users to manage student data through an 
    ```bash
    git clone https://github.com/your_username/WebAPP_Springboot.git
 
-##Run the Application:
+## Run the Application:
+
 ./mvnw spring-boot:run
 
-##Access the Application:
+## Access the Application:
+
 Open your web browser and go to http://localhost:8080
 
