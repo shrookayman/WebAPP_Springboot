@@ -4,6 +4,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,14 +47,20 @@ public class DataController {
         student.setGPA(formData.get("gpa"));
         student.setLevel(formData.get("level"));
         student.setAddress(formData.get("address"));
-        xmlStudentService.writeStudentToXml("Student.xml", student);
-        numStudents--;
-        if(numStudents==0){
-            return "redirect:/display-xml-data";
+        String response = xmlStudentService.writeStudentToXml("Student.xml", student);
+        if(response == null){
+            numStudents--;
+            if(numStudents==0){
+                return "redirect:/display-xml-data";
+            }
+            else {
+                return "redirect:/store-xml-data?numStudents=" + numStudents;
+            }
         }
-        else {
-            return "redirect:/store-xml-data?numStudents=" + numStudents;
-        }
+        System.out.println(response);
+//        redirectAttributes.addFlashAttribute("numStudents", numStudents);
+//        redirectAttributes.addFlashAttribute("errorMsg", response);
+        return "redirect:/store-xml-data?numStudents=" + numStudents;
     }
 
     @PostMapping("/delete-student")

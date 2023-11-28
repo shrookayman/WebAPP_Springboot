@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import io.micrometer.common.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,7 +20,12 @@ import java.util.List;
 
 @Service
 public class XMLStudentService {
-    public void writeStudentToXml(String xmlFilePath, Student student) throws Exception {
+    public String writeStudentToXml(String xmlFilePath, Student student) throws Exception {
+        // Validate student attributes
+        if (validateStudentAttributes(student) != null){
+            return(validateStudentAttributes(student));
+        }
+
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
@@ -29,12 +35,27 @@ public class XMLStudentService {
             doc = docBuilder.parse(xmlFile);
         } else {
             doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement("Student");
+            Element rootElement = doc.createElement("Students");
             doc.appendChild(rootElement);
         }
 
-
+        // Get the root element (Students) of the XML document.
         Element rootElement = doc.getDocumentElement();
+
+        // Check for duplicate ID
+        if (isStudentIdDuplicate(rootElement, student.getId())) {
+            return("Duplicate student ID");
+        }
+
+        if(!student.getFirstName().matches("[a-zA-Z]+")){
+            return("Invalid first name");
+        }
+        if(!student.getLastName().matches("[a-zA-Z]+")){
+            return("Invalid last name");
+        }
+        if(!student.getAddress().matches("[a-zA-Z]+")){
+            return("Invalid address");
+        }
 
         Element studentElement = doc.createElement("Student");
         rootElement.appendChild(studentElement);
@@ -48,13 +69,46 @@ public class XMLStudentService {
         studentElement.appendChild(createStudentElement(doc, "Level", student.getLevel()));
         studentElement.appendChild(createStudentElement(doc, "Address", student.getAddress()));
 
-
+        // Write the DOM document back to the XML file.
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         DOMSource source = new DOMSource(doc);
         StreamResult result = new StreamResult(xmlFile);
         transformer.transform(source, result);
+        return null;
+    }
+
+    private String validateStudentAttributes(Student student) throws Exception {
+        if (StringUtils.isBlank(student.getId()) || StringUtils.isBlank(student.getFirstName())
+                || StringUtils.isBlank(student.getLastName()) || StringUtils.isBlank(student.getGender())
+                || StringUtils.isBlank(student.getGPA()) || StringUtils.isBlank(student.getLevel())
+                || StringUtils.isBlank(student.getAddress())) {
+            return("All attributes must be provided and cannot be null/empty");
+        }
+
+        // Validate GPA within the range 0 to 4
+        try {
+            double gpa = Double.parseDouble(student.getGPA());
+            if (gpa < 0 || gpa > 4) {
+                return("GPA must be between 0 and 4");
+            }
+        } catch (NumberFormatException e) {
+            return("Invalid GPA, must be between 0 and 4");
+        }
+        return null;
+    }
+
+    private boolean isStudentIdDuplicate(Element rootElement, String studentId) {
+        NodeList studentNodes = rootElement.getElementsByTagName("Student");
+        for (int i = 0; i < studentNodes.getLength(); i++) {
+            Element studentElement = (Element) studentNodes.item(i);
+            String existingId = studentElement.getAttribute("ID");
+            if (existingId.equals(studentId)) {
+                return true; // Duplicate ID found
+            }
+        }
+        return false; // No duplicate ID found
     }
 
     private Node createStudentElement(Document doc, String tagName, String value) {

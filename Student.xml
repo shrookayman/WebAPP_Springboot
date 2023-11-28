@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Student>
-            
-    
-    
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Student>
         
-    
     <Student ID="20200122">
                 
         <FirstName>shrouk</FirstName>
@@ -19,13 +16,30 @@
         <Address>egypt, giza , 6 october city</Address>
             
     </Student>
+        
     
     <Student ID="20200122">
+                
         <FirstName>aya</FirstName>
+                
         <LastName>ayman</LastName>
+                
         <Gender>female</Gender>
+                
         <GPA>3</GPA>
+                
         <Level>1</Level>
+                
         <Address>egypt, giza , 6 october city</Address>
+            
+    </Student>
+    
+    <Student ID="20200380">
+        <FirstName>Farida</FirstName>
+        <LastName>Ahmed</LastName>
+        <Gender>fem</Gender>
+        <GPA>2.9</GPA>
+        <Level>test3</Level>
+        <Address>scccs</Address>
     </Student>
 </Student>
