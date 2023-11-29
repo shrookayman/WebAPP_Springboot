@@ -26,6 +26,7 @@
   <input type="submit" value="Search">
 </form>
 </div>
+<span> Number of Found Students: </span> <span th:text="${numOfFoundStudents}"></span>
 <th:block th:if="${searchedStudents != null}">
   <table>
     <tr>

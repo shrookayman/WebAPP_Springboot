@@ -60,15 +60,11 @@ public class DataController {
             }
         }
         else {
-            System.out.println("error1");
             model.addAttribute("numStudents", numStudents);
             model.addAttribute("errorMsg", response);
             return "store-xml-data";
         }
     } catch (Exception e) {
-           System.out.println("error2");
-
-           // Handle other exceptions if needed
         model.addAttribute("numStudents", numStudents);
         model.addAttribute("errorMsg", "Error storing student data.");
         return "store-xml-data";
@@ -96,18 +92,21 @@ public class DataController {
     public String searchStudentData(Model model, @RequestParam String searchField, @RequestParam String searchTerm) {
         try {
             List<Student> students = xmlStudentService.readStudentsFromXml("Student.xml");
-
+            int numOfFoundStudents = 0;
             List<Student> searchResults = new ArrayList<>();
             if ("GPA".equals(searchField)) {
                 for (Student student : students) {
                     if (student.getGPA().equals(searchTerm)) {
                         searchResults.add(student);
+                        numOfFoundStudents++;
                     }
                 }
             } else if ("FirstName".equals(searchField)) {
                 for (Student student : students) {
                     if (student.getFirstName().equalsIgnoreCase(searchTerm)) {
                         searchResults.add(student);
+                        numOfFoundStudents++;
+
                     }
                 }
             }
@@ -115,6 +114,8 @@ public class DataController {
                 for (Student student : students) {
                     if (student.getLastName().equalsIgnoreCase(searchTerm)) {
                         searchResults.add(student);
+                        numOfFoundStudents++;
+
                     }
                 }
             }
@@ -122,6 +123,8 @@ public class DataController {
                 for (Student student : students) {
                     if (student.getLevel().equalsIgnoreCase(searchTerm)) {
                         searchResults.add(student);
+                        numOfFoundStudents++;
+
                     }
                 }
             }
@@ -129,13 +132,18 @@ public class DataController {
                 for (Student student : students) {
                     if (student.getAddress().equalsIgnoreCase(searchTerm)) {
                         searchResults.add(student);
+                        numOfFoundStudents++;
+
                     }
+
                 }
             }
             else if ("ID".equals(searchField)) {
                 for (Student student : students) {
                     if (student.getId().equalsIgnoreCase(searchTerm)) {
                         searchResults.add(student);
+                        numOfFoundStudents++;
+
                     }
                 }
             }
@@ -143,11 +151,16 @@ public class DataController {
                 for (Student student : students) {
                     if (student.getGender().equalsIgnoreCase(searchTerm)) {
                         searchResults.add(student);
+                        numOfFoundStudents++;
+
                     }
                 }
             }
 
             model.addAttribute("searchedStudents", searchResults);
+            model.addAttribute("numOfFoundStudents", numOfFoundStudents);
+
+
         } catch (Exception e) {
             System.out.println("error");
         }
