@@ -14,8 +14,13 @@
 <form th:action="@{/search-xml-data}" method="POST">
   Search by:
   <select name="searchField">
-    <option value="GPA">GPA</option>
+    <option value="ID">ID</option>
     <option value="FirstName">First Name</option>
+    <option value="LastName">Last Name</option>
+    <option value="GPA">GPA</option>
+    <option value="Level">Level</option>
+    <option value="Gender">Gender</option>
+    <option value="Address">Address</option>
   </select>
   <input type="text" name="searchTerm" placeholder="Enter search term">
   <input type="submit" value="Search">

@@ -111,6 +111,41 @@ public class DataController {
                     }
                 }
             }
+            else if ("LastName".equals(searchField)) {
+                for (Student student : students) {
+                    if (student.getLastName().equalsIgnoreCase(searchTerm)) {
+                        searchResults.add(student);
+                    }
+                }
+            }
+            else if ("Level".equals(searchField)) {
+                for (Student student : students) {
+                    if (student.getLevel().equalsIgnoreCase(searchTerm)) {
+                        searchResults.add(student);
+                    }
+                }
+            }
+            else if ("Address".equals(searchField)) {
+                for (Student student : students) {
+                    if (student.getAddress().equalsIgnoreCase(searchTerm)) {
+                        searchResults.add(student);
+                    }
+                }
+            }
+            else if ("ID".equals(searchField)) {
+                for (Student student : students) {
+                    if (student.getId().equalsIgnoreCase(searchTerm)) {
+                        searchResults.add(student);
+                    }
+                }
+            }
+            else if ("Gender".equals(searchField)) {
+                for (Student student : students) {
+                    if (student.getGender().equalsIgnoreCase(searchTerm)) {
+                        searchResults.add(student);
+                    }
+                }
+            }
 
             model.addAttribute("searchedStudents", searchResults);
         } catch (Exception e) {
