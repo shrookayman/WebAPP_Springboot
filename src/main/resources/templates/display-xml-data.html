@@ -13,13 +13,14 @@
 <form th:action="@{/sort-students}" method="POST">
     <label for="type">Choose sorting Type:</label>
     <select id="type" th:name="'type'">
+        <option style="display: none" value="" disabled selected>Select type</option>
         <option value="asc">Ascending</option>
         <option value="desc">Descending</option>
     </select>
 
     <label for="attribute">Choose Attribute:</label>
     <select id="attribute" th:name="'attributes'">
-        <option value="ID">ID</option>
+        <option style="display: none" value="" disabled selected>Select attribute</option>
         <option value="fName">First Name</option>
         <option value="lName">Last Name</option>
         <option value="id">ID</option>
