@@ -1,32 +1,55 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Student>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Student>
+                                    
+    
+    
+    
+                
+    
+    
+    
+        
+    
+    
+    
+    
             
     
-    <Student ID="20200380">
+    
+    
+        
+    
+    
+    
+    
+
+    
+    
+    
+    <Student ID="20200251">
                                 
         
         
-        <FirstName>Farida</FirstName>
+        <FirstName>shrouk</FirstName>
                                 
         
         
-        <LastName>Ahmed</LastName>
+        <LastName>Ayman</LastName>
                                 
         
         
-        <Gender>fem</Gender>
+        <Gender>female</Gender>
                                 
         
         
-        <GPA>2.9</GPA>
+        <GPA>3.07</GPA>
                                 
         
         
-        <Level>test3</Level>
+        <Level>4</Level>
                                 
         
         
-        <Address>scccs</Address>
+        <Address>october</Address>
                             
     
     
@@ -34,13 +57,13 @@
             
     
     
-    <Student ID="20200121">
+    <Student ID="20200107">
                         
         
-        <FirstName>shrouk</FirstName>
+        <FirstName>Aya</FirstName>
                         
         
-        <LastName>ayman</LastName>
+        <LastName>Mounir</LastName>
                         
         
         <Gender>female</Gender>
@@ -52,34 +75,34 @@
         <Level>4</Level>
                         
         
-        <Address>egypt</Address>
+        <Address>helwan</Address>
                     
     
     </Student>
         
     
-    <Student ID="20200125">
+    <Student ID="20200380">
                 
-        <FirstName>aya</FirstName>
+        <FirstName>farida</FirstName>
                 
-        <LastName>monuir</LastName>
+        <LastName>ahmed</LastName>
                 
         <Gender>female</Gender>
                 
-        <GPA>2.09</GPA>
+        <GPA>4</GPA>
                 
-        <Level>3</Level>
+        <Level>4</Level>
                 
-        <Address>Egypt</Address>
+        <Address>Dokki</Address>
             
     </Student>
     
-    <Student ID="20200224">
-        <FirstName>salma</FirstName>
+    <Student ID="20200152">
+        <FirstName>Salma</FirstName>
         <LastName>Ahmed</LastName>
         <Gender>female</Gender>
-        <GPA>3.06</GPA>
-        <Level>4</Level>
-        <Address>Egypt</Address>
+        <GPA>3</GPA>
+        <Level>3</Level>
+        <Address>masr gdida</Address>
     </Student>
 </Student>

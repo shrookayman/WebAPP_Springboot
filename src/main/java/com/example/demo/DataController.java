@@ -40,7 +40,6 @@ public class DataController {
     public String storeStudentData(Model model, @RequestParam Integer numStudents, @RequestParam Map<String, String> formData) throws Exception {
         String errorMsg = null;
        try{
-        System.out.println(formData);
         Student student = new Student();
         student.setId(formData.get("id"));
         student.setFirstName(formData.get("firstName"));
@@ -74,12 +73,51 @@ public class DataController {
 //        redirectAttributes.addFlashAttribute("errorMsg", response);
 //        return "redirect:/store-xml-data?numStudents=" + numStudents;
     }
-
+    String sID="";
     @PostMapping("/delete-student")
     public String deleteStudent(@RequestParam("studentId") String studentId) throws Exception {
+
         xmlStudentService.deleteStudentFromXml("Student.xml", studentId);
         return "redirect:/display-xml-data";
     }
+    //         ---------Update-------
+    @GetMapping("/update-student")
+    public String updateStudent(Model model,@RequestParam("studentId") String studentId) throws Exception {
+        try {
+            sID=studentId;
+            List<Student> students = xmlStudentService.readStudentsFromXml("Student.xml");
+
+            List<Student> updateStudent = new ArrayList<>();
+            for (Student student : students) {
+                if (student.getId().equalsIgnoreCase(studentId)) {
+                    updateStudent.add(student);
+                }
+            }
+
+           model.addAttribute("updateStudentData", updateStudent);
+
+
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+        return "update-attributes";
+    }
+
+    @PostMapping("/update-student")
+    public String updateStudentData(@RequestParam Map<String, String> formData) throws Exception {
+        Student student = new Student();
+        student.setId(formData.get("id"));
+        student.setFirstName(formData.get("firstName"));
+        student.setLastName(formData.get("lastName"));
+        student.setGender(formData.get("gender"));
+        student.setGPA(formData.get("gpa"));
+        student.setLevel(formData.get("level"));
+        student.setAddress(formData.get("address"));
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+sID);
+        xmlStudentService.updateStudentData("Student.xml", sID,student);
+        return "redirect:/display-xml-data";
+    }
+
 
     //         ---------Search-------
 

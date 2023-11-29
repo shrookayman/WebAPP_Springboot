@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update data</title>
+</head>
+<body>
+<nav style="padding: 1rem">
+    <a href="/display-xml-data" class="nav" >Display Students</a>
+    <a href="/search-xml-data"  class="nav" >Search</a>
+    <a href="/store-xml-data" class="nav" >Add Student</a>
+</nav>
+<!-- Display student data input fields based on the number of students -->
+<th:block th:if="${updateStudentData != null}">
+    <form th:action="@{/update-student}" method="POST">
+        <div class="form" th:each="student : ${updateStudentData}">
+            <input type="hidden" name="numStudents" th:value="${numStudents}" />
+            <h2> <span th:text="${numStudents}"></span> Update student data</h2>
+            ID:<input type="text" th:name="'id'" class="inputData"  th:value="${student.getId()}" disabled><br>
+            First Name: <input type="text" th:name="'firstName'" class="inputData" th:value="${student.getFirstName()}"><br>
+            Last Name: <input type="text" th:name="'lastName'" class="inputData" th:value="${student.getLastName()}"><br>
+            Gender: <input type="text" th:name="'gender'" class="inputData" th:value="${student.getGender()}"><br>
+            GPA: <input type="text" th:name="'gpa'" class="inputData" th:value="${student.getGPA()}"><br>
+            Level: <input type="text" th:name="'level'" class="inputData" th:value="${student.getLevel()}"><br>
+            Address: <input type="text" th:name="'address'" class="inputData" th:value="${student.getAddress()}"><br>
+        </div>
+        <!--        </th:each>-->
+        <input type="Submit" value="Update" style="margin: 1rem">
+    </form>
+</th:block>
+</body>
+</html>
+<style>
+    .inputData {
+        display: block;
+        margin: 3px 0;
+    }
+    .form{
+        padding: 1rem;
+    }
+    .nav{
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        font-family: 'sans-serif';
+        background-color: #4e6974;
+        color: white;
+    }
+    .nav:hover{
+        background-color:  #f2f2f2;
+        color:#4e6974;
+    }
+
+
+</style>

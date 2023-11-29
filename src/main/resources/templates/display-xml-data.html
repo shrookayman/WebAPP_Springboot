@@ -19,6 +19,7 @@
             <th>GPA</th>
             <th>Level</th>
             <th>Address</th>
+            <th>Update</th>
             <th>Delete</th>
         </tr>
         <tr th:each="student : ${students}">
@@ -29,6 +30,12 @@
             <td th:text="${student.getGPA()}"></td>
             <td th:text="${student.getLevel()}"></td>
             <td th:text="${student.getAddress()}"></td>
+            <td>
+                <form th:action="@{/update-student}" method="get">
+                    <input type="hidden" th:name="studentId" th:value="${student.getId()}" />
+                    <button style="background-color: #33BBFF; color: white;" type="submit">Update</button>
+                </form>
+            </td>
             <td>
                 <form th:action="@{/delete-student}" method="post">
                     <input type="hidden" th:name="studentId" th:value="${student.getId()}" />

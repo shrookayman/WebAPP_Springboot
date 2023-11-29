@@ -188,4 +188,52 @@ public class XMLStudentService {
         StreamResult result = new StreamResult(new File(xmlFilePath));
         transformer.transform(source, result);
     }
+
+    public void updateStudentData(String xmlFilePath, String studentId,Student student) throws Exception {
+        File xmlFile = new File(xmlFilePath);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(xmlFile);
+        doc.getDocumentElement().normalize();
+
+        // Find the user element with the specified ID
+        NodeList userList = doc.getElementsByTagName("Student");
+        for (int i = 0; i < userList.getLength(); i++) {
+            Node user = userList.item(i);
+            if (user.getNodeType() == Node.ELEMENT_NODE) {
+                Element studentElement = (Element) user;
+                String userId = studentElement.getAttribute("ID");
+                if (userId.equals(studentId)) {
+                    //  Update user data
+
+                    Element firstNameElement = (Element) studentElement.getElementsByTagName("FirstName").item(0);
+                    firstNameElement.setTextContent(student.getFirstName());
+
+                    Element lastNameElement = (Element) studentElement.getElementsByTagName("LastName").item(0);
+                    lastNameElement.setTextContent(student.getLastName());
+
+                    Element genderElement = (Element) studentElement.getElementsByTagName("Gender").item(0);
+                    genderElement.setTextContent(student.getGender());
+
+                    Element gpaElement = (Element) studentElement.getElementsByTagName("GPA").item(0);
+                    gpaElement.setTextContent(student.getGPA());
+
+                    Element levelElement = (Element) studentElement.getElementsByTagName("Level").item(0);
+                    levelElement.setTextContent(student.getLevel());
+
+                    Element addressElement = (Element) studentElement.getElementsByTagName("Address").item(0);
+                    addressElement.setTextContent(student.getAddress());
+                    break; // Exit loop after updating
+                }
+            }
+        }
+
+        // Write the changes back to the XML file
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(new File(xmlFilePath));
+        transformer.transform(source, result);
+
+    }
 }
