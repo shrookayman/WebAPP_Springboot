@@ -38,6 +38,8 @@ public class DataController {
 
     @PostMapping("/store-xml-data")
     public String storeStudentData(Model model, @RequestParam Integer numStudents, @RequestParam Map<String, String> formData) throws Exception {
+        String errorMsg = null;
+       try{
         System.out.println(formData);
         Student student = new Student();
         student.setId(formData.get("id"));
@@ -57,10 +59,24 @@ public class DataController {
                 return "redirect:/store-xml-data?numStudents=" + numStudents;
             }
         }
-        System.out.println(response);
+        else {
+            System.out.println("error1");
+            model.addAttribute("numStudents", numStudents);
+            model.addAttribute("errorMsg", response);
+            return "store-xml-data";
+        }
+    } catch (Exception e) {
+           System.out.println("error2");
+
+           // Handle other exceptions if needed
+        model.addAttribute("numStudents", numStudents);
+        model.addAttribute("errorMsg", "Error storing student data.");
+        return "store-xml-data";
+    }
+//        System.out.println(response);
 //        redirectAttributes.addFlashAttribute("numStudents", numStudents);
 //        redirectAttributes.addFlashAttribute("errorMsg", response);
-        return "redirect:/store-xml-data?numStudents=" + numStudents;
+//        return "redirect:/store-xml-data?numStudents=" + numStudents;
     }
 
     @PostMapping("/delete-student")
