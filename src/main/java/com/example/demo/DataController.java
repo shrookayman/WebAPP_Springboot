@@ -38,7 +38,6 @@ public class DataController {
 
     @PostMapping("/store-xml-data")
     public String storeStudentData(Model model, @RequestParam Integer numStudents, @RequestParam Map<String, String> formData) throws Exception {
-        String errorMsg = null;
        try{
         Student student = new Student();
         student.setId(formData.get("id"));

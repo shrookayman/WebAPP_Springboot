@@ -13,7 +13,7 @@
     Enter the number of students: <input type="number" name="numStudents"><br>
     <input type="submit" value="Enter Data">
 </form>
-<div th:if="${errorMsg != null}" th:text="${errorMsg}" style="color: red"></div>
+<div th:if="${errorMsg != null}" th:utext="${errorMsg}" style="color: red"></div>
 
 <!-- Display student data input fields based on the number of students -->
 <th:block th:if="${numStudents != null}">

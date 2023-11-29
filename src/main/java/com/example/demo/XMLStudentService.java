@@ -17,22 +17,11 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.*;
 
-import org.w3c.dom.*;
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 @Service
 public class XMLStudentService {
     public String writeStudentToXml(String xmlFilePath, Student student) throws Exception {
-        // Validate student attributes
-        if (validateStudentAttributes(student) != null){
-            return(validateStudentAttributes(student));
-        }
-
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
@@ -49,19 +38,13 @@ public class XMLStudentService {
         // Get the root element (Students) of the XML document.
         Element rootElement = doc.getDocumentElement();
 
-        // Check for duplicate ID
-        if (isStudentIdDuplicate(rootElement, student.getId())) {
-            return("Duplicate student ID");
+        String errorMsg = null;
+        if (validateStudentAttributes(rootElement, student) != null){
+            errorMsg = validateStudentAttributes(rootElement, student);
         }
 
-        if(!student.getFirstName().matches("[a-zA-Z]+")){
-            return("Invalid first name");
-        }
-        if(!student.getLastName().matches("[a-zA-Z]+")){
-            return("Invalid last name");
-        }
-        if(!student.getAddress().matches("[a-zA-Z]+")){
-            return("Invalid address");
+        if(errorMsg!=""){
+            return errorMsg;
         }
 
         Element studentElement = doc.createElement("Student");
@@ -86,24 +69,49 @@ public class XMLStudentService {
         return null;
     }
 
-    private String validateStudentAttributes(Student student) throws Exception {
+    private String validateStudentAttributes(Element rootElement, Student student) throws Exception {
+        String errorMsg = "";
         if (StringUtils.isBlank(student.getId()) || StringUtils.isBlank(student.getFirstName())
                 || StringUtils.isBlank(student.getLastName()) || StringUtils.isBlank(student.getGender())
                 || StringUtils.isBlank(student.getGPA()) || StringUtils.isBlank(student.getLevel())
                 || StringUtils.isBlank(student.getAddress())) {
-            return("All attributes must be provided and cannot be null/empty");
+            errorMsg += "All attributes must be provided and cannot be null/empty <br>";
+        }
+
+        if(!StringUtils.isBlank(student.getId())){
+            if (isStudentIdDuplicate(rootElement, student.getId())) {
+                errorMsg += "Duplicate student ID <br>";
+            }
+        }
+
+        if(!StringUtils.isBlank(student.getFirstName())){
+            if(!student.getFirstName().matches("[a-zA-Z]+")){
+                errorMsg += "Invalid first name <br>";
+            }
+        }
+        if(!StringUtils.isBlank(student.getLastName())){
+            if(!student.getLastName().matches("[a-zA-Z]+")){
+                errorMsg += "Invalid last name <br>";
+            }
+        }
+        if(!StringUtils.isBlank(student.getAddress())){
+            if(!student.getAddress().matches("[a-zA-Z]+")){
+                errorMsg += "Invalid address <br>";
+            }
         }
 
         // Validate GPA within the range 0 to 4
-        try {
-            double gpa = Double.parseDouble(student.getGPA());
-            if (gpa < 0 || gpa > 4) {
-                return("GPA must be between 0 and 4");
+        if(!StringUtils.isBlank(student.getGPA())){
+            try {
+                double gpa = Double.parseDouble(student.getGPA());
+                if (gpa < 0 || gpa > 4) {
+                    errorMsg += "GPA must be between 0 and 4 <br>";
+                }
+            } catch (NumberFormatException e) {
+                errorMsg += "Invalid GPA, must be between 0 and 4 <br>";
             }
-        } catch (NumberFormatException e) {
-            return("Invalid GPA, must be between 0 and 4");
         }
-        return null;
+        return errorMsg;
     }
 
     private boolean isStudentIdDuplicate(Element rootElement, String studentId) {
