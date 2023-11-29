@@ -15,9 +15,16 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.util.*;
+
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.*;
+import javax.xml.transform.stream.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
 @Service
 public class XMLStudentService {
     public String writeStudentToXml(String xmlFilePath, Student student) throws Exception {
@@ -189,22 +196,22 @@ public class XMLStudentService {
         transformer.transform(source, result);
     }
 
-    public void updateStudentData(String xmlFilePath, String studentId,Student student) throws Exception {
+    public void updateStudentData(String xmlFilePath, String studentId, Student student) throws Exception {
         File xmlFile = new File(xmlFilePath);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(xmlFile);
         doc.getDocumentElement().normalize();
 
-        // Find the user element with the specified ID
-        NodeList userList = doc.getElementsByTagName("Student");
-        for (int i = 0; i < userList.getLength(); i++) {
-            Node user = userList.item(i);
-            if (user.getNodeType() == Node.ELEMENT_NODE) {
-                Element studentElement = (Element) user;
-                String userId = studentElement.getAttribute("ID");
-                if (userId.equals(studentId)) {
-                    //  Update user data
+        // Find the students element with the specified ID
+        NodeList studentsList = doc.getElementsByTagName("Student");
+        for (int i = 0; i < studentsList.getLength(); i++) {
+            Node Student = studentsList.item(i);
+            if (Student.getNodeType() == Node.ELEMENT_NODE) {
+                Element studentElement = (Element) Student;
+                String studentID = studentElement.getAttribute("ID");
+                if (studentID.equals(studentId)) {
+                    //  Update students data
 
                     Element firstNameElement = (Element) studentElement.getElementsByTagName("FirstName").item(0);
                     firstNameElement.setTextContent(student.getFirstName());
@@ -235,5 +242,107 @@ public class XMLStudentService {
         StreamResult result = new StreamResult(new File(xmlFilePath));
         transformer.transform(source, result);
 
+    }
+
+    public void sortStudents(String xmlFilePath, String attribute, String sortType) throws Exception{
+        File xmlFile = new File(xmlFilePath);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(xmlFile);
+        doc.getDocumentElement().normalize();
+
+        //  Get all students elements
+        NodeList studentsList = doc.getElementsByTagName("Student");
+
+        // Create a list to store <students> elements
+        List<Element> Students = new ArrayList<>();
+        for (int i = 0; i < studentsList.getLength(); i++) {
+            Node student = studentsList.item(i);
+            if (student.getNodeType() == Node.ELEMENT_NODE) {
+                Students.add((Element) student);
+            }
+        }
+
+        //  Sort the list of <students> elements based on FirstName attribute
+        Collections.sort(Students, new Comparator<Element>() {
+            @Override
+            public int compare(Element user1, Element user2) {
+                //asc sort
+               if(Objects.equals(sortType,"asc")){
+                   if(Objects.equals(attribute, "fName")){
+                       String firstName1 = user1.getElementsByTagName("FirstName").item(0).getTextContent();
+                       String firstName2 = user2.getElementsByTagName("FirstName").item(0).getTextContent();
+                       return firstName1.compareTo(firstName2);
+                   }
+                   else if(Objects.equals(attribute, "lName")){
+                       String LastName1 = user1.getElementsByTagName("LastName").item(0).getTextContent();
+                       String LastName2 = user2.getElementsByTagName("LastName").item(0).getTextContent();
+                       return LastName1.compareTo(LastName2);
+                   }
+                   else if(Objects.equals(attribute, "gpa")){
+                       String gpa1 = user1.getElementsByTagName("GPA").item(0).getTextContent();
+                       String gpa2 = user2.getElementsByTagName("GPA").item(0).getTextContent();
+                       return gpa1.compareTo(gpa2);
+                   }
+                   else if(Objects.equals(attribute, "level")){
+                       String level1 = user1.getElementsByTagName("Level").item(0).getTextContent();
+                       String level2 = user2.getElementsByTagName("Level").item(0).getTextContent();
+                       return level1.compareTo(level2);
+                   }
+                   else{
+                       String id1 = user1.getAttribute("ID");
+                       String id2 = user2.getAttribute("ID");
+                       return id1.compareTo(id2);
+                   }
+               }
+
+               //desc sort
+               else{
+                   if(Objects.equals(attribute, "fName")){
+                       String firstName1 = user1.getElementsByTagName("FirstName").item(0).getTextContent();
+                       String firstName2 = user2.getElementsByTagName("FirstName").item(0).getTextContent();
+                       return firstName2.compareTo(firstName1);
+                   }
+                   else if(Objects.equals(attribute, "lName")){
+                       String LastName1 = user1.getElementsByTagName("LastName").item(0).getTextContent();
+                       String LastName2 = user2.getElementsByTagName("LastName").item(0).getTextContent();
+                       return LastName2.compareTo(LastName1);
+                   }
+                   else if(Objects.equals(attribute, "gpa")){
+                       String gpa1 = user1.getElementsByTagName("GPA").item(0).getTextContent();
+                       String gpa2 = user2.getElementsByTagName("GPA").item(0).getTextContent();
+                       return gpa2.compareTo(gpa1);
+                   }
+                   else if(Objects.equals(attribute, "level")){
+                       String level1 = user1.getElementsByTagName("Level").item(0).getTextContent();
+                       String level2 = user2.getElementsByTagName("Level").item(0).getTextContent();
+                       return level2.compareTo(level1);
+                   }
+                   else{
+                       String id1 = user1.getAttribute("ID");
+                       String id2 = user2.getAttribute("ID");
+                       return id2.compareTo(id1);
+                   }
+               }
+            }
+        });
+
+        // Clear the existing XML content
+        NodeList rootList = doc.getElementsByTagName(doc.getDocumentElement().getNodeName());
+        Node root = rootList.item(0);
+        while (root.hasChildNodes()) {
+            root.removeChild(root.getFirstChild());
+        }
+
+        // Add sorted <students> elements back to the XML document
+        for (Element student : Students) {
+            root.appendChild(doc.importNode(student, true));
+        }
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(new File(xmlFilePath));
+        transformer.transform(source, result);
     }
 }

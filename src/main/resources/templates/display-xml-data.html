@@ -10,6 +10,25 @@
     <a href="/store-xml-data" class="nav" >Add Student</a>
 </nav>
     <h1>Student Data</h1>
+<form th:action="@{/sort-students}" method="POST">
+    <label for="type">Choose sorting Type:</label>
+    <select id="type" th:name="'type'">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
+
+    <label for="attribute">Choose Attribute:</label>
+    <select id="attribute" th:name="'attributes'">
+        <option value="ID">ID</option>
+        <option value="fName">First Name</option>
+        <option value="lName">Last Name</option>
+        <option value="id">ID</option>
+        <option value="gpa">GPA</option>
+        <option value="level">Level</option>
+    </select>
+
+    <button style="background-color: #33BBFF; color: white;" type="submit">Sort</button>
+</form>
     <table>
         <tr>
             <th>ID</th>

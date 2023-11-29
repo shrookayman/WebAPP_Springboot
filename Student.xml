@@ -1,108 +1,36 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Student>
-                                    
-    
-    
-    
-                
-    
-    
-    
-        
-    
-    
-    
-    
-            
-    
-    
-    
-        
-    
-    
-    
-    
-
-    
-    
-    
-    <Student ID="20200251">
-                                
-        
-        
-        <FirstName>shrouk</FirstName>
-                                
-        
-        
-        <LastName>Ayman</LastName>
-                                
-        
-        
-        <Gender>female</Gender>
-                                
-        
-        
-        <GPA>3.07</GPA>
-                                
-        
-        
-        <Level>4</Level>
-                                
-        
-        
-        <Address>october</Address>
-                            
-    
-    
-    </Student>
-            
-    
-    
-    <Student ID="20200107">
-                        
-        
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Students><Student ID="20200107">
         <FirstName>Aya</FirstName>
-                        
-        
         <LastName>Mounir</LastName>
-                        
-        
         <Gender>female</Gender>
-                        
-        
-        <GPA>3.06</GPA>
-                        
-        
+        <GPA>3</GPA>
         <Level>4</Level>
-                        
-        
-        <Address>helwan</Address>
-                    
-    
-    </Student>
-        
-    
-    <Student ID="20200380">
-                
-        <FirstName>farida</FirstName>
-                
-        <LastName>ahmed</LastName>
-                
-        <Gender>female</Gender>
-                
-        <GPA>4</GPA>
-                
-        <Level>4</Level>
-                
-        <Address>Dokki</Address>
-            
-    </Student>
-    
-    <Student ID="20200152">
+        <Address>Helwan</Address>
+    </Student><Student ID="20200152">
         <FirstName>Salma</FirstName>
         <LastName>Ahmed</LastName>
         <Gender>female</Gender>
         <GPA>3</GPA>
         <Level>3</Level>
         <Address>masr gdida</Address>
-    </Student>
-</Student>
+    </Student><Student ID="20200251">
+        <FirstName>Shrouk</FirstName>
+        <LastName>Ayman</LastName>
+        <Gender>female</Gender>
+        <GPA>3.07</GPA>
+        <Level>4</Level>
+        <Address>october</Address>
+    </Student><Student ID="20200380">
+        <FirstName>Farida</FirstName>
+        <LastName>ahmed</LastName>
+        <Gender>female</Gender>
+        <GPA>4</GPA>
+        <Level>4</Level>
+        <Address>Dokki</Address>
+    </Student><Student ID="20201212">
+        <FirstName>Hana</FirstName>
+        <LastName>essam</LastName>
+        <Gender>female</Gender>
+        <GPA>3</GPA>
+        <Level>4</Level>
+        <Address>fysal</Address>
+    </Student></Students>

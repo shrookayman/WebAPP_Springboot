@@ -86,17 +86,13 @@ public class DataController {
         try {
             sID=studentId;
             List<Student> students = xmlStudentService.readStudentsFromXml("Student.xml");
-
             List<Student> updateStudent = new ArrayList<>();
             for (Student student : students) {
                 if (student.getId().equalsIgnoreCase(studentId)) {
                     updateStudent.add(student);
                 }
             }
-
            model.addAttribute("updateStudentData", updateStudent);
-
-
         } catch (Exception e) {
             System.out.println("error");
         }
@@ -113,8 +109,16 @@ public class DataController {
         student.setGPA(formData.get("gpa"));
         student.setLevel(formData.get("level"));
         student.setAddress(formData.get("address"));
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+sID);
         xmlStudentService.updateStudentData("Student.xml", sID,student);
+        return "redirect:/display-xml-data";
+    }
+
+    //         ---------Sort---------
+
+    @PostMapping("/sort-students")
+    public String sortStudents(@RequestParam Map<String, String> sortData) throws Exception {
+        xmlStudentService.sortStudents("Student.xml", sortData.get("attributes"),sortData.get("type"));
+        System.out.println(sortData.get("attributes")   +   sortData.get("type") + "aaaaaaaaaaaaaaaaaaaaaaaaaa");
         return "redirect:/display-xml-data";
     }
 
