@@ -121,12 +121,6 @@ public class DataController {
         return "redirect:/display-xml-data";
     }
 
-    @PostMapping("/sort-students")
-    public String sortStudent(@RequestParam Map<String, String> sortData) throws Exception {
-        xmlStudentService.sortStudents("Student.xml", sortData.get("attributes"),sortData.get("type"));
-        System.out.println(sortData.get("attributes")   +   sortData.get("type") + "aaaaaaaaaaaaaaaaaaaaaaaaaa");
-        return "redirect:/display-xml-data";
-    }
 
     //         ---------Search-------
 
